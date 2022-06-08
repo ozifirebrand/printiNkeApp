@@ -1,1 +1,1 @@
-web: java -Dspring.profiles.active=dev -Dserver.port=8080 $JAVA_OPTS -jar target/*.jar ozi.app.printApp.PrintAppApplication
+web: java $JAVA_OPTS -jar target/*.jar ozi.app.printApp.PrintAppApplication
