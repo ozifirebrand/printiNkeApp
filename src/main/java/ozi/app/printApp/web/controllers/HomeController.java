@@ -1,23 +1,25 @@
 package ozi.app.printApp.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ozi.app.printApp.data.dtos.requests.OrderCreationRequest;
 import ozi.app.printApp.data.dtos.responses.OrderCreationResponse;
 import ozi.app.printApp.exceptions.BusinessLogicException;
 import ozi.app.printApp.services.orderService.OrderServices;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/")
 
 public class HomeController {
 
     @Autowired
     private OrderServices orderServices;
 
+    @PostMapping("")
+    public ResponseEntity<?> welcome(){
+        return ResponseEntity.ok().body("Welcome to printApp");
+    }
     @GetMapping("/welcome-page")
     public OrderCreationResponse makeOrder(@RequestBody OrderCreationRequest request) throws BusinessLogicException {
         return orderServices.createOrder(request);
