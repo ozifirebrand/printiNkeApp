@@ -27,6 +27,9 @@ public class UserServicesImpl implements UserServices {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public UserCreationResponse createUser(UserCreationRequest request) throws BusinessLogicException {
         validateRequestDetails(request);
@@ -73,8 +76,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public boolean deleteUserById(String userId) {
         userRepository.deleteById(userId);
-        final boolean empty = userRepository.findById(userId).isEmpty();
-        return empty;
+        return userRepository.findById(userId).isEmpty();
     }
 
     @Override
@@ -95,9 +97,6 @@ public class UserServicesImpl implements UserServices {
         userRepository.save(printUser);
     }
 
-    @Autowired
-    private OrderRepository orderRepository;
-
     @Override
     public OrderCreationResponse createOrder(OrderCreationRequest request)
             throws BusinessLogicException {
@@ -109,7 +108,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     private void validate(OrderCreationRequest request) throws BusinessLogicException {
-        boolean imageUrlIsEmpty= request.getImageUrl() == null;
+        boolean imageUrlIsEmpty= request.getImageUrl().isEmpty();
         boolean sizeIsEmpty = request.getSize()==0;
         boolean quantityIsEmpty = request.getQuantity() == 0;
         boolean userIdIsEmpty = request.getUserId()==null;
